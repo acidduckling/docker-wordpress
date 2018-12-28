@@ -18,20 +18,34 @@ services:
       MYSQL_ROOT_PASSWORD: ${WORDPRESS_ROOT_PASSWORD}
       # MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
-  wordpress:
-    image: wordpress
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+
     restart: always
     ports:
       - ${WORDPRESS_PORT}:80
 
     volumes:
-      - ./wp-content:/var/www/html/wp-content
+      - ./web/wp-content:/var/www/html/wp-content
+      - ./web/sites-available:/etc/apache2/sites-available
+      - ./web/apache2.conf:/etc/apache2/apache2.conf
 
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USERNAME}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+
+  api:
+    # Defining the api build verbose - in case we want alternate Dockerfile configs
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - ${API_PORT}:8080
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
