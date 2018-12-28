@@ -14,3 +14,12 @@ docker-compose up
 
 # Database Config
 DB Connection options are configured in .env file to simplify editing, and clarifying which env variables would typically be edited.
+
+# Node API
+Node service running on http://localhost:8282/
+Also available via reverse proxy at localhost:8080/api
+
+The service can also be accessed via a reverese proxy configured in Apache (see the API Proxy config in the 
+[000-default.conf](./web/sites-available/000-default.conf) file)
+
+This is just an example of configuring an API service to be accessible through Apache using reverse proxies.
