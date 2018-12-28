@@ -1,6 +1,22 @@
 version: '3.1'
 
 services:
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpadmin
+      MYSQL_PASSWORD: Testing123!
+      MYSQL_ROOT_PASSWORD: Testing123!
+      # MYSQL_RANDOM_ROOT_PASSWORD: '1'
 
   wordpress:
     image: wordpress
@@ -13,27 +29,20 @@ services:
 
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+      WORDPRESS_DB_USER: wpadmin
+      WORDPRESS_DB_PASSWORD: Testing123!
+      WORDPRESS_DB_NAME: wpdb
 
-  db:
-    image: mysql:5.7
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - 3306:3306
+     - 8181:80
 
     volumes:
-      - ./data:/var/lib/mysql
+     - /sessions
 
     environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: '1'
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8181:8080
+     # PMA_ARBITRARY: 1
+     MYSQL_USERNAME: wpadmin
+     MYSQL_ROOT_PASSWORD: Testing123!
