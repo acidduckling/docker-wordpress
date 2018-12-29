@@ -1,0 +1,11 @@
+<h1>About Page</h1>
+<p>This is a really simple example of configuring the following, all through Docker:</p>
+<ul>
+  <li>Apache - hosting WordPress and static files, plus route configuration</li>
+  <li>Node.js - running a simple Express Web API server - routed via reverse proxy in Apache</li>
+  <li>MySQL - DB for WordPress, and a custom users table generated upon container instantiation</li>
+  <li>MyPHPAdmin - connected to MySQL for web based admin</li>
+  <li>Angular - Static Angular files served through the Apache instance, with rewrite rules for client routing</li>
+</ul>
+<br>
+<a [routerLink]="['/']">Home</a>
