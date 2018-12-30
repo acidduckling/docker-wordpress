@@ -1,0 +1,8 @@
+RewriteEngine On
+    # If an existing asset or directory is requested go to it as it is.
+    # Note that the app files live outside the DOCUMENT_ROOT path (html) - so we have an alias configured to provide the app files
+    RewriteCond /var/www/app/%{REQUEST_URI} -f [OR]
+    RewriteCond /var/www/app/%{REQUEST_URI} -d
+    RewriteRule ^ - [L]
+    # If the requested resource doesn't exist, use index.html
+RewriteRule ^ index.html

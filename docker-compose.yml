@@ -28,9 +28,14 @@ services:
       - ${WORDPRESS_PORT}:80
 
     volumes:
+      # WordPress content - themes etc
       - ./web/wp-content:/var/www/html/wp-content
-      - ./web/sites-available:/etc/apache2/sites-available
+      # SPA Application (Apache configured to point to this with an alias)
+      - ./web/app/dist:/var/www/app
+      # Global container Apache configuration
       - ./web/apache2.conf:/etc/apache2/apache2.conf
+      # Apache specific site configurations
+      - ./web/sites-available:/etc/apache2/sites-available
 
     environment:
       WORDPRESS_DB_HOST: db
