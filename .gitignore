@@ -1,2 +1,3 @@
 db/data/**/*
 **/node_modules/**/*
+web/wp-content/uploads/**/*
